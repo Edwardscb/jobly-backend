@@ -1,7 +1,7 @@
 "use strict";
 
 const db = require("../db");
-const { NotFoundError} = require("../expressError");
+const { NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
 
 
@@ -79,7 +79,7 @@ class Job {
 
     // Finalize query and return results
 
-    query += " ORDER BY title";
+    query += " ORDER BY title LIMIT 100";
     const jobsRes = await db.query(query, queryValues);
     return jobsRes.rows;
   }

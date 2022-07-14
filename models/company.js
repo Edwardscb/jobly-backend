@@ -108,6 +108,7 @@ class Company {
    **/
 
   static async get(handle) {
+    console.log(handle)
     const companyRes = await db.query(
           `SELECT handle,
                   name,
@@ -115,8 +116,8 @@ class Company {
                   num_employees AS "numEmployees",
                   logo_url AS "logoUrl"
            FROM companies
-           WHERE handle = $1`,
-        [handle]);
+           WHERE handle LIKE $1`,
+        ['%' + handle + '%']);
 
     const company = companyRes.rows[0];
 
@@ -132,7 +133,7 @@ class Company {
 
     company.jobs = jobsRes.rows;
 
-    return company;
+    return [company];
   }
 
   /** Update company data with `data`.
